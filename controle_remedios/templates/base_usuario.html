@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="{% static 'css/custom.css' %}">
+        <script type="text/javascript" src="{% static 'js/custom.js'%}"></script>
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+        </script>
+        <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/materializedatetimepicker.js' %}"></script>
+        <script src="{% static 'js/jquery.mask.min.js'%}"></script>
+    
+        <title>Document</title>
+    </head> 
+<body>
+    
+    <header>
+        
+        <nav>
+            <div class=" z-depth-2 red nav-wrapper">
+                <a href="#!" class="brand-logo center">{{nome_pagina}}</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a 
+                        href="{%url 'dosagem_usuario'%}">
+                        <i class="material-icons right">medical_services</i>
+                        Doses diarias
+                    </a></li>
+                    <li><a 
+                        href="{%url 'dashboard_usuario'%}">
+                        <i class="material-icons right">account_circle</i>
+                        Dashboard do usuário
+                    </a></li>
+
+                    <li><a 
+                        href="{%url 'home'%}">
+                        <i class="material-icons right">logout</i>
+                        Sair
+                    </a></li>
+              </ul>
+              
+            </div>
+        </nav>
+        <ul class="sidenav" id="mobile-demo">
+            <li><a 
+                href="{%url 'dosagem_usuario'%}">
+                <i class="material-icons right">medical_services</i>
+                Doses diarias
+            </a></li>
+            <li><a 
+                href="{%url 'dashboard_usuario'%}">
+                <i class="material-icons right">account_circle</i>
+                Dashboard do usuário
+            </a></li>
+
+            <li><a 
+                href="{%url 'home'%}">
+                <i class="material-icons right">logout</i>
+                sair
+            </a></li>
+        </ul>
+        
+    </header>
+
+
+    {% block conteudo %}
+    {% endblock conteudo %}
+
+    <footer class="page-footer red ">
+        <div class="footer-copyright ">
+          
+        </div>
+    </footer>
+    
+    
+    <script>
+
+    $(document).ready(function(){
+        $('select').formSelect();
+        $('.tabs').tabs();
+        $(".dropdown-trigger").dropdown();
+        $('.sidenav').sidenav();
+        // // $('.datepicker').datepicker({
+        //     i18n: {
+        //     months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        //     monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+        //     weekdays: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabádo'],
+        //     weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+        //     weekdaysAbbrev: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+        //     today: 'Hoje',
+        //     clear: 'Limpar',
+        //     cancel: 'Sair',
+        //     done: 'Confirmar',
+        //     labelMonthNext: 'Próximo mês',
+        //     labelMonthPrev: 'Mês anterior',
+        //     labelMonthSelect: 'Selecione um mês',
+        //     labelYearSelect: 'Selecione um ano',
+        //     selectMonths: true,
+        //     selectYears: 15,
+        //     },
+            
+        //     format: 'yyyy-mm-dd',
+        //     container: 'body',
+        //     yearRange: 80,
+        //     maxDate: new Date(),
+
+            
+        // });
+            
+    });
+
+    </script>
+    
+    {% block scripts %}
+
+    
+
+    {% endblock %}
+
+</body>
+</html>

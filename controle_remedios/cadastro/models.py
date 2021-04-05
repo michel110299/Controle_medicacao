@@ -70,8 +70,9 @@ class Receita(models.Model):
         verbose_name = "Nome do remedio",
     )
     intervalo = models.FloatField(
-        verbose_name = "Intervalo de tempo",
-        default = 0,
+        verbose_name = "Intervalo de tempo em horas",
+        blank = False,
+        null = False,
     )
     data_inicio = models.DateField(
         verbose_name="Data de inicio para tomar o remédio",
@@ -81,5 +82,13 @@ class Receita(models.Model):
     )
     dosagem = models.FloatField(
         verbose_name = "Dosagem do Remédio",
-        default = 0,
+        blank = False,
+        null = False,
     )
+    class Meta:
+        verbose_name = "Receita"
+        verbose_name_plural = "Receitas"
+        db_table = "receita"
+
+    def __str__(self):
+        return self.remedio

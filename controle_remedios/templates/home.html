@@ -1,0 +1,19 @@
+{%extends "base.html"%}
+
+{%block conteudo%}
+{%if messages%}
+    {% for mensagem in messages%}
+            <div class="alert card red lighten-4 red-text text-darken-4">
+                <div class="card-content">
+                    <p><i class="material-icons">report</i><span>Alerta:</span> {{mensagem}}</p>
+                </div>
+            </div>
+    {%endfor%}
+
+{% endif%}
+<main>
+    Menu
+</main>
+
+ 
+{%endblock conteudo%}

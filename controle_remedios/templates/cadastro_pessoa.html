@@ -1,0 +1,73 @@
+{%extends "base.html"%}
+{% load materializecss %}
+{%block conteudo%}
+
+<main>
+    <div class="container margintop z-depth-5">
+        <div class="row">
+            <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s6"><a class="active" href="#cadastro">Cadastro</a></li>
+                <li class="tab col s6"><a  href="#listar">Listar pacientes</a></li>
+            </ul>
+            </div>
+            <div id="cadastro" class="col s12">
+                <form method="POST">
+                {% csrf_token %}
+                
+                {{form|materializecss}}
+                <div class="row">
+                    <div class="col s2 offset-s5">
+                        <button class="btn waves-effect  indigo darken-3" type="submit" name="action">Submit
+                            <i class="material-icons right">ios_share</i>
+                        </button>
+
+                    </div>
+                </div>
+
+                </form>
+            </div>
+            <div id="listar" class="col s12">
+                <table class="centered responsive-table highlight">
+                    <thead>
+                      <tr>
+                          <th>Nome</th>
+                          <th>Cpf</th>
+                          <th>Data de nascimento</th>
+                          <th>Email</th>
+                      </tr>
+                    </thead>
+            
+                    <tbody>
+                    {%for pessoas in todas_pessoas%}
+                        <tr>
+                            <td>{{pessoas.nome_completo}}</td>
+                            <td>{{pessoas.cpf}}</td>
+                            <td>{{pessoas.data_nascimento}}</td>
+                            <td>{{pessoas.email}}</td>
+                        </tr>
+                    {%endfor%}
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+    
+    
+</main>
+
+ 
+{%endblock conteudo%}
+
+{% block scripts%}
+
+<script>
+
+    $(document).ready(function(){
+        $("#id_cpf").mask("000.000.000-00");
+    });
+
+</script> 
+
+
+{% endblock%}

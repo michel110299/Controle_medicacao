@@ -1,0 +1,43 @@
+{%extends "base.html"%}
+{% load materializecss %}
+{%block conteudo%}
+
+<main>
+    <div class="row container">
+        <div class="col s8 offset-s2">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="input-field">
+                    <input id="icon_prefix" type="text"  name="cpf" class="validate">
+                    <label for="icon_prefix">cpf</label> 
+                </div>
+                
+                <div class="row">
+                    <div class="col s2 offset-s5">
+                        <button class="btn waves-effect blue-grey lighten-1 z-depth-2" type="submit" name="action">Submit
+                            <i class="material-icons right">app_registration</i>
+                        </button>  
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    
+</main>
+
+ 
+{%endblock conteudo%}
+
+{% block scripts%}
+
+<script>
+
+    $(document).ready(function(){
+        $("#icon_prefix").mask("000.000.000-00");
+    });
+
+</script> 
+
+
+{% endblock%}

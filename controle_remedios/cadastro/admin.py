@@ -6,3 +6,4 @@ admin.site.register(Pessoa)
 admin.site.register(Remedio)
 admin.site.register(Receita)
 
+
