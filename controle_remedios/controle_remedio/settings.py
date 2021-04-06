@@ -28,6 +28,10 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
+AUTH_USER_MODEL = "cadastro.Pessoa"
+LOGIN_REDIRECT_URL = '/adm/dashbord-usuario'
+LOGIN_URL = '/login'
 # Application definition
 
 INSTALLED_APPS = [

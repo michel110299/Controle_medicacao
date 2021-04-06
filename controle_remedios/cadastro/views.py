@@ -2,11 +2,14 @@ from django.shortcuts import render,redirect
 from cadastro.forms import *
 from cadastro.models import *
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required
+@login_required
 def registrar_remedio(request):
 
-    form = Remedioform
+    objPessoa = Pessoa.objects.get(pk=request.user.id)
 
+    form = Remedioform
+    
     todos_remedios = Remedio.objects.all()
 
     if request.method == "POST":
@@ -16,18 +19,23 @@ def registrar_remedio(request):
         if form.is_valid():
 
             form.save()
-            return redirect("home")
+            return redirect("dashboard_usuario")
 
 
     context = {
         "nome_pagina":"Cadastro de remedios",
         "form":form,
         "todos_remedios": todos_remedios,
+        "usuario" : objPessoa,
     }
 
     return render(request,"cadastro_remedio.html",context)
 
+
+
 def registrar_pessoa(request):
+
+    objPessoa = Pessoa.objects.get(pk=request.user.id)
 
     form = Pessoaform
     todas_pessoas = Pessoa.objects.all()
@@ -46,15 +54,18 @@ def registrar_pessoa(request):
         "nome_pagina":"Cadastro de Pacientes",
         "form":form,
         "todas_pessoas":todas_pessoas,
+        "usuario" : objPessoa,
 
     }
 
     return render(request,"cadastro_pessoa.html",context)
-
+@login_required
 def registrar_receita(request):
 
+    objPessoa = Pessoa.objects.get(pk=request.user.id)
+
     form = Receitaform
-    todas_receitas = Receita.objects.all()
+    list_receitas = Receita.objects.filter(pessoa=objPessoa)
 
     if request.method == "POST":
 
@@ -63,32 +74,16 @@ def registrar_receita(request):
         if form.is_valid():
 
             form.save()
-            return redirect("home")
+            return redirect("dashboard_usuario")
 
 
     context = {
         "nome_pagina" : "Cadastro de receitas",
-        "todas_receitas" : todas_receitas,
+        "list_receitas" : list_receitas,
         "form" : form,
+        "usuario" : objPessoa,
     }
+    
     return render(request,"cadastro_receita.html",context)
 
-def login_usuario(request):
-
-    if request.POST:
-        
-        cpf_login = request.POST.get('cpf', None)
-
-        try:
-            objpessoa = Pessoa.objects.get(cpf=cpf_login)
-            return redirect("dashboard_usuario")
-            
-        except:
-            messages.error(request,"Não temos esse cpf cadastrado!")
-            return redirect("home")
-
-    context = {
-        "nome_pagina" : "Login",
-    }
-    return render(request,"login_usuario.html",context)
 

@@ -25,43 +25,22 @@
 <body>
     
     <header>
-        <ul id="Cadastros" class=" dropdown-content">
-            <li><a 
-                href="{% url 'registrar_remedio'%}">
-                <i class="material-icons right">health_and_safety</i>
-                Remedios
-            </a></li>
-            <li><a 
-                href="{% url 'registrar_pessoa'%}">
-                <i class="material-icons right">groups</i>
-                Pacientes
-            </a></li>
-            <li><a 
-                href="{% url 'registrar_receita'%}">
-                <i class="material-icons right">fact_check</i>
-                Receitas
-            </a></li>
-        </ul>
         <nav>
             <div class=" z-depth-2 red nav-wrapper">
                 <a href="#!" class="brand-logo center">{{nome_pagina}}</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a class="dropdown-trigger" href="#!" data-target="Cadastros">
-                        Cadastros
-                    <i class="material-icons right">arrow_drop_down</i>
+                    <li><a 
+                        href="{% url 'registrar_pessoa'%}">
+                        <i class="material-icons right">how_to_reg</i>
+                        Cadastrar conta
                     </a></li>
                     <li><a 
-                        href="{%url 'login_usuario'%}">
+                        href="{%url 'login'%}">
                         <i class="material-icons right">account_circle</i>
-                        Dashboard do usuário
+                        Login
                     </a></li>
 
-                    <li><a 
-                        href="{%url 'home'%}">
-                        <i class="material-icons right">menu</i>
-                        Menu
-                    </a></li>
                     <!-- Dropdown Trigger -->
               </ul>
               
@@ -69,25 +48,14 @@
         </nav>
         <ul class="sidenav" id="mobile-demo">
             <li><a 
-                href="{% url 'registrar_remedio'%}">
-                <i class="material-icons right">health_and_safety</i>
-                Remedios
-            </a></li>
-            <li><a 
                 href="{% url 'registrar_pessoa'%}">
-                <i class="material-icons right">groups</i>
-                Pessoas
+                <i class="material-icons right">how_to_reg</i>
+                Cadastrar conta
             </a></li>
             <li><a 
-                href="#">
-                <i class="material-icons right">thumb_up_alt</i>
-                Materialize
-            </a></li>
-
-            <li><a 
-                href="#">
-                <i class="material-icons right">style</i>
-                jquery
+                href="{%url 'login'%}">
+                <i class="material-icons right">account_circle</i>
+                Login
             </a></li>
         </ul>
         

@@ -16,6 +16,8 @@
                 {% csrf_token %}
                 
                 {{form|materializecss}}
+
+                
                 <div class="row">
                     <div class="col s2 offset-s5">
                         <button class="btn waves-effect  indigo darken-3" type="submit" name="action">Submit
@@ -65,6 +67,7 @@
 
     $(document).ready(function(){
         $("#id_cpf").mask("000.000.000-00");
+        $("#id_password").attr("type","password")
     });
 
 </script> 

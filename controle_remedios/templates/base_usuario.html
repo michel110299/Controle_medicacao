@@ -25,25 +25,35 @@
 <body>
     
     <header>
+        <ul id="Cadastros" class=" dropdown-content">
+            <li><a 
+                href="{% url 'registrar_remedio'%}">
+                <i class="material-icons right">health_and_safety</i>
+                Remedios
+            </a></li>
+            <li><a 
+                href="{% url 'registrar_receita'%}">
+                <i class="material-icons right">fact_check</i>
+                Receitas
+            </a></li>
+        </ul>
         
         <nav>
             <div class=" z-depth-2 red nav-wrapper">
                 <a href="#!" class="brand-logo center">{{nome_pagina}}</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a 
-                        href="{%url 'dosagem_usuario'%}">
-                        <i class="material-icons right">medical_services</i>
-                        Doses diarias
+                    <li><a class="dropdown-trigger" href="#!" data-target="Cadastros">
+                        Cadastros
+                    <i class="material-icons right">arrow_drop_down</i>
                     </a></li>
                     <li><a 
                         href="{%url 'dashboard_usuario'%}">
                         <i class="material-icons right">account_circle</i>
-                        Dashboard do usuário
+                        Dashboard do {{usuario}}
                     </a></li>
-
                     <li><a 
-                        href="{%url 'home'%}">
+                        href="{%url 'login'%}">
                         <i class="material-icons right">logout</i>
                         Sair
                     </a></li>
@@ -52,21 +62,19 @@
             </div>
         </nav>
         <ul class="sidenav" id="mobile-demo">
-            <li><a 
-                href="{%url 'dosagem_usuario'%}">
-                <i class="material-icons right">medical_services</i>
-                Doses diarias
+            <li><a class="dropdown-trigger" href="#!" data-target="Cadastros">
+                Cadastros
+            <i class="material-icons right">arrow_drop_down</i>
             </a></li>
             <li><a 
                 href="{%url 'dashboard_usuario'%}">
                 <i class="material-icons right">account_circle</i>
-                Dashboard do usuário
+                Dashboard do {{usuario}}
             </a></li>
-
             <li><a 
-                href="{%url 'home'%}">
+                href="{%url 'login'%}">
                 <i class="material-icons right">logout</i>
-                sair
+                Sair
             </a></li>
         </ul>
         

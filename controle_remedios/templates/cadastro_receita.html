@@ -1,4 +1,4 @@
-{%extends "base.html"%}
+{%extends "base_usuario.html"%}
 {% load materializecss %}
 {%block conteudo%}
 
@@ -7,8 +7,8 @@
         <div class="row">
             <div class="col s12">
                 <ul class="tabs">
-                    <li class="tab col s6"><a class="active" href="#cadastro">Cadastro</a></li>
-                    <li class="tab col s6"><a  href="#listar">Listar receitas</a></li>
+                    <li class="tab col s6"><a  href="#cadastro">Cadastro</a></li>
+                    <li class="tab col s6"><a class="active" href="#listar">Listar receitas</a></li>
                 </ul>
             </div>
             <div id="cadastro" class="col s12">
@@ -34,19 +34,29 @@
                             <th>Paciente</th>
                             <th>Remedio</th>
                             <th>Intervalo</th>
+                            <th>quantidade de dias</th>
                             <th>Data de inicio</th>
                             <th>Dosagem</th>
+                            <th>cronograma</th>
                         </tr>
                     </thead>
             
                     <tbody>
-                    {%for receita in todas_receitas%}
+                    {%for receita in list_receitas%}
                         <tr>
                             <td>{{receita.pessoa}}</td>
                             <td>{{receita.remedio}}</td>
                             <td>{{receita.intervalo}} horas</td>
+                            <td>{{receita.quantidade_dias}} dias</td>
                             <td>{{receita.data_inicio}}</td>
                             <td>{{receita.dosagem}}</td>
+                            <td>
+                                <a class="btn waves-effect indigo darken-3 z-depth-2 " 
+                                href="{% url 'dosagem_usuario' id_receita=receita.id %}">
+                                <i class="material-icons right">info</i>
+                                Ver cronograma
+                                </a>
+                            </td>
                         </tr>
                     {%endfor%}
                     </tbody>

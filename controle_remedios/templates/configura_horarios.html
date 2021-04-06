@@ -1,22 +1,29 @@
-{%extends "base.html"%}
+{%extends "base_usuario.html"%}
 {% load materializecss %}
 {%block conteudo%}
 
+<script>
+    $(document).ready(function(){
+        M.AutoInit();
+        var DateField = MaterialDateTimePicker.create($('#id_horario_inicio'));
+     }); 
+
+</script> 
+
 <main>
-     <div class="row container">
+    <div class="row container">
         <div class="col s8 offset-s2">
             <form method="POST">
                 {% csrf_token %}
                 
                 <div class="input-field">
-                    <input id="icon_prefix" type="text"  name="username" class="validate">
-                    <label for="icon_prefix">cpf</label> 
+                    <input id="icon_prefix" type="text" name="nome" class="validate">
+                    <label for="icon_prefix">Nome</label> 
                 </div>
                 <div class="input-field">
-                    <input id="icon_prefix" type="text"  name="password" class="validate">
-                    <label for="icon_prefix">senha</label> 
+                    <input id="id_horario_inicio" type="text"   name="data_de_inicio" class="validate">
+                    <label for="id_horario_inicio">Data de inicio</label> 
                 </div>
-                
                 <div class="row">
                     <div class="col s2 offset-s5">
                         <button class="btn waves-effect  indigo darken-3" type="submit" name="action">Submit
@@ -25,22 +32,9 @@
                     </div>
                 </div>
             </form>
-        </div> 
-    
+        </div>
+    </div>
 </main>
 
  
 {%endblock conteudo%}
-
-{% block scripts%}
-
-<script>
-
-    $(document).ready(function(){
-        $("#icon_prefix").mask("000.000.000-00");
-    });
-
-</script> 
-
-
-{% endblock%}
