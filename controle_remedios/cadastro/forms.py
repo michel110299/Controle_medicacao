@@ -24,4 +24,4 @@ class Pessoaform(forms.ModelForm):
 class Receitaform(forms.ModelForm):
     class Meta:
         model = Receita
-        fields = ["pessoa","remedio","intervalo","data_inicio","quantidade_dias","dosagem"]
+        fields = ["remedio","intervalo","data_inicio","quantidade_dias","dosagem"]
