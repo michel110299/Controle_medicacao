@@ -23,11 +23,30 @@
         <title>Document</title>
     </head> 
 <body>
-    
+    <script>
+        $(document).ready(function(){
+            $('select').formSelect();
+            $('.tabs').tabs();
+            $(".dropdown-trigger").dropdown();
+            $('.sidenav').sidenav();
+        });
+    </script>
     <header>
         <ul id="Cadastros" class=" dropdown-content">
             <li><a 
                 href="{% url 'registrar_remedio'%}">
+                <i class="material-icons right">health_and_safety</i>
+                Remedios
+            </a></li>
+            <li><a 
+                href="{% url 'registrar_receita' %}">
+                <i class="material-icons right">fact_check</i>
+                Receitas
+            </a></li>
+        </ul>
+        <ul id="Cadastros_side" class="dropdown-content">
+            <li><a 
+                href="{% url 'registrar_remedio' %}">
                 <i class="material-icons right">health_and_safety</i>
                 Remedios
             </a></li>
@@ -43,7 +62,7 @@
                 <a href="#!" class="brand-logo center">{{nome_pagina}}</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a class="dropdown-trigger" href="#!" data-target="Cadastros">
+                    <li><a class="dropdown-trigger" data-target="Cadastros">
                         Cadastros
                     <i class="material-icons right">arrow_drop_down</i>
                     </a></li>
@@ -62,7 +81,7 @@
             </div>
         </nav>
         <ul class="sidenav" id="mobile-demo">
-            <li><a class="dropdown-trigger" href="#!" data-target="Cadastros">
+            <li><a class="dropdown-trigger" href="#!" data-target="Cadastros_side">
                 Cadastros
             <i class="material-icons right">arrow_drop_down</i>
             </a></li>

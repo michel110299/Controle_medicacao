@@ -3,7 +3,36 @@
 {%block conteudo%}
 
 <main>
-    dosagem
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col s6">
+                {% for q in listHorario %}
+                {% if q.concluido == False and q.horario <= horario_atual%}
+                <label>
+                    <input name="tomou_remedio" type="radio" value="{{q.id}}" required/>
+                    <span>{{q.horario}}</span>
+                </label><br>
+                {%else%}
+                    {%if q.concluido == True%}
+                    <span>{{q.horario}} já tomou</span>
+                    
+                    {%else%}
+
+                    <span>{{q.horario}} não tomou mas em breve vai poder tomar </span>
+
+                    {%endif%}
+                <br>
+                {%endif%}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col s6">
+            <button class="btn waves-effect z-depth-2" type="submit" name="action">Submit
+                <i class="material-icons right">app_registration</i>
+            </button>
+        </div>
+    </form>
     
 </main>
 

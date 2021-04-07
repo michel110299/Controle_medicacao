@@ -37,7 +37,7 @@ class Agenda_receita(models.Model):
         db_table = "agenda_receita"
 
     def __str__(self):
-        return self.receita
+        return self.nome_completo
 
 class Horario_remedio(models.Model):
     agenda_receita = models.ForeignKey(
@@ -61,7 +61,7 @@ class Horario_remedio(models.Model):
         db_table = "horário_remedio"
 
     def __str__(self):
-        return self.agenda_receita
+        return self.agenda_receita.nome_completo
 
 
 

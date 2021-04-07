@@ -47,7 +47,7 @@ def registrar_pessoa(request):
         if form.is_valid():
 
             form.save()
-            return redirect("home")
+            return redirect("login")
 
 
     context = {

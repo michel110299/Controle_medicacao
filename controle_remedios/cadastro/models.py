@@ -161,4 +161,4 @@ class Receita(models.Model):
         db_table = "receita"
 
     def __str__(self):
-        return self.dosagem
+        return "%s - %s" % (self.remedio.nome_completo, self.pessoa.nome_completo)
