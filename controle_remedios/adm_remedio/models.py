@@ -7,10 +7,7 @@ class Agenda_receita(models.Model):
         on_delete = models.CASCADE,
         verbose_name = "Receita",
     )
-    nome_completo = models.CharField(
-        verbose_name = "Nome completo",
-        max_length = 194,
-    )
+
     data_inicio = models.DateTimeField(
         verbose_name="Data de inicio para tomar o remédio",
         auto_now= False,
@@ -37,7 +34,7 @@ class Agenda_receita(models.Model):
         db_table = "agenda_receita"
 
     def __str__(self):
-        return self.nome_completo
+        return self.receita.remedio.nome_completo
 
 class Horario_remedio(models.Model):
     agenda_receita = models.ForeignKey(
@@ -61,7 +58,7 @@ class Horario_remedio(models.Model):
         db_table = "horário_remedio"
 
     def __str__(self):
-        return self.agenda_receita.nome_completo
+        return self.agenda_receita.receita.remedio.nome_completo
 
 
 

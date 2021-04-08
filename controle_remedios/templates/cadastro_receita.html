@@ -60,7 +60,7 @@
                                 {% else %}
                                     {%if obj.Receita.data_inicio <= data_atual %}
                                     <a class="btn waves-effect indigo darken-3 z-depth-2 " 
-                                    href="{% url 'dosagem_usuario' obj.Receita.id %}" >
+                                    href="{% url 'configura_horario_dosagem' obj.Receita.id %}" >
                                     <i class="material-icons right">info</i>
                                     Começar um cronograma
                                     </a>
