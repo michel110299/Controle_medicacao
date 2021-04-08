@@ -25,9 +25,8 @@ def dosagem_usuario(request,id_receita):
     objPessoa = Pessoa.objects.get(pk=request.user.id)
     primeiro_nome = objPessoa.nome_completo.split(None, 1)[0]
     objReceita = Receita.objects.get(pk=id_receita)
-
     objAgenda_receita = Agenda_receita.objects.get(receita=objReceita)
-
+    nome_pagina = objReceita.remedio.nome_completo
     listHorario = Horario_remedio.objects.filter(agenda_receita=objAgenda_receita)
 
     listHorarios_false = []
@@ -41,8 +40,9 @@ def dosagem_usuario(request,id_receita):
             cont += 1
     
     if cont > 1:
+
         print("deu ruim")
-        primeiro_remedio = listHorarios_false[0]
+
 
         for l in listHorarios_false:
             l.delete()
@@ -65,7 +65,7 @@ def dosagem_usuario(request,id_receita):
 
 
     context = {
-        "nome_pagina":"Dosagens",
+        "nome_pagina": "Dosagens - "+ nome_pagina,
         "usuario" : primeiro_nome,
         "objAgenda_receita" : objAgenda_receita,
         'listHorario':listHorario,

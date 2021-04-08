@@ -75,15 +75,16 @@ def registrar_receita(request):
     form = Receitaform
     list_receitas = Receita.objects.filter(pessoa=objPessoa).order_by("-pk")
     listReceitas = []
+    listhorarios_false = []
     for q in list_receitas:
         try:
-            objAgenda = Agenda_receita.objects.get(receita=q)
+            objAgenda_receita = Agenda_receita.objects.get(receita=q)
         except Agenda_receita.DoesNotExist:
-            objAgenda = None
+            objAgenda_receita = None
             
         obj = {
             "Receita":q,
-            "Agenda":objAgenda,
+            "Agenda":objAgenda_receita,
         }
         listReceitas.append(obj)
 
