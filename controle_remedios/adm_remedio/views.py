@@ -38,9 +38,9 @@ def dosagem_usuario(request,id_receita):
             objHorario = Horario_remedio.objects.get(pk=idObjHorario)
             objHorario.concluido = True
             objHorario.save()
-            return redirect("dashboard_usuario")
+            return redirect("registrar_receita")
         else:
-            return redirect("dashboard_usuario")
+            return redirect("registrar_receita")
 
 
     context = {

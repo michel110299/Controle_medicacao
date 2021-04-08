@@ -8,15 +8,17 @@ var MaterialDateTimePicker = {
     dateRange: null,
     pickerOptions: null,
     create: function(element){
+        
         this.control = element == undefined? $('#' + localStorage.getItem('element')) : element;
         element = this.control;
         if (this.control.is("input[type='text']"))
         {
             var defaultDate = new Date();
             element.off('click');
+
             element.datepicker({
                 i18n: {
-                       months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                        months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
                         monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
                         weekdays: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabádo'],
                         weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
@@ -31,18 +33,20 @@ var MaterialDateTimePicker = {
                         labelYearSelect: 'Selecione um ano',
                         selectMonths: true,
                         selectYears: 15,
+                        minDate: "2021-05-09",
                         },
 
                 format:  'yyyy-mm-dd',
                 yearRange: 80 ,
+                minDate: new Date(),
                 selectMonths: true,
                 dismissable: false,
                 autoClose: true,
                 onClose: function(){
                     element.datepicker('destroy');
-                    element.timepicker({
+                    element.timepicker({                        
                         dismissable: false,
-                        twelveHour:false,
+                        twelveHour:false,                        
                         onSelect: function(hr, min){
                             element.attr('selectedTime', (hr + ":" + min).toString());
                         },
