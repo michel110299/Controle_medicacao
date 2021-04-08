@@ -10,6 +10,7 @@ from datetime import date
 def registrar_remedio(request):
 
     objPessoa = Pessoa.objects.get(pk=request.user.id)
+    primeiro_nome = objPessoa.nome_completo.split(None, 1)[0]
 
     form = Remedioform
     
@@ -29,7 +30,7 @@ def registrar_remedio(request):
         "nome_pagina":"Cadastro de remedios",
         "form":form,
         "todos_remedios": todos_remedios,
-        "usuario" : objPessoa,
+        "usuario" : primeiro_nome,
     }
 
     return render(request,"cadastro_remedio.html",context)
@@ -39,7 +40,7 @@ def registrar_remedio(request):
 def registrar_pessoa(request):
 
     objPessoa = Pessoa.objects.get(pk=request.user.id)
-
+    primeiro_nome = objPessoa.nome_completo.split(None, 1)[0]
     form = Pessoaform
     todas_pessoas = Pessoa.objects.all()
 
@@ -57,7 +58,7 @@ def registrar_pessoa(request):
         "nome_pagina":"Cadastro de Pacientes",
         "form":form,
         "todas_pessoas":todas_pessoas,
-        "usuario" : objPessoa,
+        "usuario" : primeiro_nome,
 
     }
 
@@ -69,7 +70,7 @@ def registrar_receita(request):
     data_atual = horario_atual.date()
 
     objPessoa = Pessoa.objects.get(pk=request.user.id)
-    
+    primeiro_nome = objPessoa.nome_completo.split(None, 1)[0]
 
     form = Receitaform
     list_receitas = Receita.objects.filter(pessoa=objPessoa).order_by("-pk")
@@ -104,7 +105,7 @@ def registrar_receita(request):
         "nome_pagina" : "Cadastro de receitas",
         "list_receitas" : listReceitas,
         "form" : form,
-        "usuario" : objPessoa,
+        "usuario" : primeiro_nome,
         "data_atual" : data_atual,
     }
     

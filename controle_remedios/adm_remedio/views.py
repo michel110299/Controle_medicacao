@@ -10,10 +10,10 @@ import datetime
 def dashbord_usuario(request):
 
     objPessoa = Pessoa.objects.get(pk=request.user.id)
-    
+    primeiro_nome = objPessoa.nome_completo.split(None, 1)[0]
     context = {
         "nome_pagina": "dashboard",
-        "usuario" : objPessoa,
+        "usuario" :primeiro_nome,
     }
 
     return render(request,"dashboard_usuario.html",context)
@@ -21,9 +21,9 @@ def dashbord_usuario(request):
 @login_required    
 def dosagem_usuario(request,id_receita):
 
-    horario_inicio_remedio = timezone.now()
     horario_atual = timezone.now()
     objPessoa = Pessoa.objects.get(pk=request.user.id)
+    primeiro_nome = objPessoa.nome_completo.split(None, 1)[0]
     objReceita = Receita.objects.get(pk=id_receita)
 
     objAgenda_receita = Agenda_receita.objects.get(receita=objReceita)
@@ -45,7 +45,7 @@ def dosagem_usuario(request,id_receita):
 
     context = {
         "nome_pagina":"Dosagens",
-        "usuario" : objPessoa,
+        "usuario" : primeiro_nome,
         "objAgenda_receita" : objAgenda_receita,
         'listHorario':listHorario,
         'horario_atual' : horario_atual,
@@ -59,6 +59,7 @@ def configura_horario_dosagem(request,id_receita):
     listHorarios = []
     
     objPessoa = Pessoa.objects.get(pk=request.user.id)
+    primeiro_nome = objPessoa.nome_completo.split(None, 1)[0]
     objReceita = Receita.objects.get(pk=id_receita)
 
     totalDoze = int((objReceita.quantidade_dias*24)/objReceita.intervalo)    
@@ -88,7 +89,7 @@ def configura_horario_dosagem(request,id_receita):
 
     context = {
         "nome_pagina":"datas disponiveis",
-        "usuario" : objPessoa,
+        "usuario" : primeiro_nome,
         "listHorarios" : listHorarios,
     }
 
