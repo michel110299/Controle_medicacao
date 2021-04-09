@@ -39,8 +39,7 @@ def registrar_remedio(request):
 
 def registrar_pessoa(request):
 
-    objPessoa = Pessoa.objects.get(pk=request.user.id)
-    primeiro_nome = objPessoa.nome_completo.split(None, 1)[0]
+   
     form = Pessoaform
     todas_pessoas = Pessoa.objects.all()
 
@@ -58,7 +57,6 @@ def registrar_pessoa(request):
         "nome_pagina":"Cadastro de Pacientes",
         "form":form,
         "todas_pessoas":todas_pessoas,
-        "usuario" : primeiro_nome,
 
     }
 
