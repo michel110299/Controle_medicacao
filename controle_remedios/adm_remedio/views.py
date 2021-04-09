@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from adm_remedio.models import Agenda_receita,Horario_remedio
 import datetime
+from django.contrib import messages
 
 
 @login_required
@@ -11,9 +12,32 @@ def dashbord_usuario(request):
 
     objPessoa = Pessoa.objects.get(pk=request.user.id)
     primeiro_nome = objPessoa.nome_completo.split(None, 1)[0]
+    listReceita = [] 
+    listReceitas = []
+
+    try:
+        listReceita = Receita.objects.filter(pessoa=objPessoa)
+    except:
+        listReceita = None
+    
+    for q in listReceita:
+        try:
+            objAgenda_receita = Agenda_receita.objects.get(receita=q)
+        except Agenda_receita.DoesNotExist:
+            objAgenda_receita = None
+            
+        obj = {
+            "Receita":q,
+            "Agenda":objAgenda_receita,
+        }
+        
+        listReceitas.append(obj)
+
+
     context = {
         "nome_pagina": "dashboard",
         "usuario" :primeiro_nome,
+        "listReceitas":listReceitas,
     }
 
     return render(request,"dashboard_usuario.html",context)
@@ -38,11 +62,11 @@ def dosagem_usuario(request,id_receita):
     for l in listHorarios_false:
         if l.horario <= horario_atual:
             cont += 1
-    
+
     if cont > 1:
 
         print("deu ruim")
-
+        messages.error(request,"Você não tomou sua ultima dose no horário certo, Por favor selecione uma nova data!") 
 
         for l in listHorarios_false:
             l.delete()
@@ -59,6 +83,10 @@ def dosagem_usuario(request,id_receita):
                 objHorario = Horario_remedio.objects.get(pk=idObjHorario)
                 objHorario.concluido = True
                 objHorario.save()
+                if objHorario == Horario_remedio.objects.filter(agenda_receita=objAgenda_receita).last():
+                    print("testekak")
+                    objAgenda_receita.concluido = True
+                    objAgenda_receita.save()
                 return redirect("registrar_receita")
             else:
                 return redirect("registrar_receita")
@@ -91,54 +119,59 @@ def configura_horario_dosagem(request,id_receita):
     totalDoze = int((objReceita.quantidade_dias*24)/objReceita.intervalo)
     if not objAgenda_receita:
         if request.POST:
-            data_de_inicio = request.POST.get('data_de_inicio', None)         
-            horario_inicio_remedio =datetime.datetime.strptime(data_de_inicio,'%Y-%m-%d %H:%M')    
-            print(horario_inicio_remedio)
-            objAgenda_receita = Agenda_receita()
-            objAgenda_receita.receita = objReceita
-            objAgenda_receita.data_inicio = horario_inicio_remedio 
-            objAgenda_receita.data_de_termino = horario_inicio_remedio + timezone.timedelta(days=objReceita.quantidade_dias)
-            objAgenda_receita.save()
-            
-            objHorario = Horario_remedio()
-            objHorario.agenda_receita = objAgenda_receita
-            objHorario.horario = horario_inicio_remedio
-            objHorario.save()
-            
-            for q in range(totalDoze):
-                horario_inicio_remedio += timezone.timedelta(hours=objReceita.intervalo)
+            data_de_inicio = request.POST.get('data_de_inicio', None)  
+            if data_de_inicio:       
+                horario_inicio_remedio =datetime.datetime.strptime(data_de_inicio,'%Y-%m-%d %H:%M')    
+                print(horario_inicio_remedio)
+                objAgenda_receita = Agenda_receita()
+                objAgenda_receita.receita = objReceita
+                objAgenda_receita.data_inicio = horario_inicio_remedio 
+                objAgenda_receita.data_de_termino = horario_inicio_remedio + timezone.timedelta(days=objReceita.quantidade_dias)
+                objAgenda_receita.save()
+                
                 objHorario = Horario_remedio()
                 objHorario.agenda_receita = objAgenda_receita
                 objHorario.horario = horario_inicio_remedio
                 objHorario.save()
-            return redirect("dosagem_usuario",id_receita )  
+                
+                for q in range(totalDoze):
+                    horario_inicio_remedio += timezone.timedelta(hours=objReceita.intervalo)
+                    objHorario = Horario_remedio()
+                    objHorario.agenda_receita = objAgenda_receita
+                    objHorario.horario = horario_inicio_remedio
+                    objHorario.save()
+                return redirect("dosagem_usuario",id_receita )  
+            else:
+                return redirect("configura_horario_dosagem",id_receita )
     else:
 
         listHorarios = Horario_remedio.objects.filter(agenda_receita=objAgenda_receita)
 
         totalDoze -= len(listHorarios)
         if request.POST:
-            data_de_inicio = request.POST.get('data_de_inicio', None)        
-            horario_inicio_remedio =datetime.datetime.strptime(data_de_inicio,'%Y-%m-%d %H:%M')    
-            print(horario_inicio_remedio)
-            objAgenda_receita.reajuste = True
-            objAgenda_receita.data_inicio = horario_inicio_remedio 
-            objAgenda_receita.data_de_termino = horario_inicio_remedio + timezone.timedelta(days=objReceita.quantidade_dias)
-            objAgenda_receita.save()
-            
-            objHorario = Horario_remedio()
-            objHorario.agenda_receita = objAgenda_receita
-            objHorario.horario = horario_inicio_remedio
-            objHorario.save()
-            
-            for q in range(totalDoze):
-                horario_inicio_remedio += timezone.timedelta(hours=objReceita.intervalo)
+            data_de_inicio = request.POST.get('data_de_inicio', None)
+            if data_de_inicio:        
+                horario_inicio_remedio =datetime.datetime.strptime(data_de_inicio,'%Y-%m-%d %H:%M')    
+                print(horario_inicio_remedio)
+                objAgenda_receita.reajuste = True
+                objAgenda_receita.data_inicio = horario_inicio_remedio 
+                objAgenda_receita.data_de_termino = horario_inicio_remedio + timezone.timedelta(days=objReceita.quantidade_dias)
+                objAgenda_receita.save()
+                
                 objHorario = Horario_remedio()
                 objHorario.agenda_receita = objAgenda_receita
                 objHorario.horario = horario_inicio_remedio
                 objHorario.save()
-            return redirect("dosagem_usuario",id_receita )
-
+                
+                for q in range(totalDoze):
+                    horario_inicio_remedio += timezone.timedelta(hours=objReceita.intervalo)
+                    objHorario = Horario_remedio()
+                    objHorario.agenda_receita = objAgenda_receita
+                    objHorario.horario = horario_inicio_remedio
+                    objHorario.save()
+                return redirect("dosagem_usuario",id_receita )
+            else:
+                return redirect("configura_horario_dosagem",id_receita )
 
     
 

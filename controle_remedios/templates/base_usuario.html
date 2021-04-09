@@ -10,6 +10,7 @@
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="{% static 'css/custom.css' %}">
+        <link href="{% static 'css/HoldOn.min.css'%}" rel="stylesheet">
         <script type="text/javascript" src="{% static 'js/custom.js'%}"></script>
         <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -19,7 +20,8 @@
         <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/materializedatetimepicker.js' %}"></script>
         <script src="{% static 'js/jquery.mask.min.js'%}"></script>
-    
+
+        <script type="text/javascript" src="{% static 'js/HoldOn.min.js'%}"></script>
         <title>Document</title>
     </head> 
 <body>
@@ -30,6 +32,22 @@
             $(".dropdown-trigger").dropdown();
             $('.sidenav').sidenav();
         });
+
+        $(window).bind('beforeunload', function(){
+            var options = {
+                theme:"sk-cube-grid",
+                message:'Por favor, aguarde...',
+                backgroundColor:"#000",
+                textColor:"white"
+            };
+
+            HoldOn.open(options);
+        });        
+
+        $(window).load(function() {
+            HoldOn.close();
+        });
+
     </script>
     <header>
         <ul id="Cadastros" class=" dropdown-content">

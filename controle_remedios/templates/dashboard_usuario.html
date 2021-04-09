@@ -4,6 +4,33 @@
 
 <main>
     
+    <div class="row">
+        <div class="col s5">
+            <table>
+                <thead>
+                  <tr>
+                      <th>Remedio</th>
+                      <th>data de inicio</th>
+                  </tr>
+                </thead>
+        
+                <tbody>
+                    {% for receitas in listReceitas%}
+                        {% if receitas.Agenda%}
+                            {%if receitas.Agenda.concluido == True%}
+                                <tr>
+                                    <td>{{receitas.Receita.remedio}}</td>
+                                    <td>{{receitas.Receita.data_inicio}}</td>
+                                    <td>{{receitas.Agenda.concluido}}</td>
+
+                                </tr>
+                            {%endif%}
+                        {%endif%}
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
     
     
 </main>

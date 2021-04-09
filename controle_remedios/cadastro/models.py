@@ -101,7 +101,7 @@ class Pessoa(AbstractBaseUser,PermissionsMixin):
         db_table = "pessoa"
 
     def __str__(self):
-        return self.nome_completo
+        return self.nome_completo.split(None, 1)[0]
 
 class Remedio(models.Model):
 
@@ -134,10 +134,11 @@ class Receita(models.Model):
         on_delete = models.CASCADE,
         verbose_name = "Nome do remedio",
     )
-    quantidade_dias = models.IntegerField(
+    quantidade_dias = models.PositiveIntegerField(
         verbose_name = "Total de dias",
         help_text = "total de dias que será consumido o remédio",
         default = 0,
+
     )
     intervalo = models.FloatField(
         verbose_name = "Intervalo de tempo em horas",
