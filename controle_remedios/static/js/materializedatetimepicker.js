@@ -44,9 +44,9 @@ var MaterialDateTimePicker = {
                 autoClose: true,
                 onClose: function(){
                     element.datepicker('destroy');
-                    element.timepicker({                        
+                    element.timepicker({                
                         dismissable: false,
-                        twelveHour:false,                        
+                        twelveHour:false,                     
                         onSelect: function(hr, min){
                             element.attr('selectedTime', (hr + ":" + min).toString());
                         },

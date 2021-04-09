@@ -9,31 +9,49 @@ from django.contrib import messages
 
 @login_required
 def dashbord_usuario(request):
-
+    data_now = timezone.now()
     objPessoa = Pessoa.objects.get(pk=request.user.id)
     primeiro_nome = objPessoa.nome_completo.split(None, 1)[0]
     listReceita = [] 
     listReceitas = []
-
+    listNao_tomado = []
+    horario_nao_tomado = 0
     try:
         listReceita = Receita.objects.filter(pessoa=objPessoa)
+
     except:
         listReceita = None
+    
+
+
     
     for q in listReceita:
         try:
             objAgenda_receita = Agenda_receita.objects.get(receita=q)
+            listHorarios = Horario_remedio.objects.filter(agenda_receita=objAgenda_receita)
+            for x in listHorarios:
+                if x.concluido == False:
+                    if x.horario <= data_now:
+                        horario_nao_tomado += 1
+
+            listNao_tomado.append(horario_nao_tomado)
+            horario_nao_tomado = 0
+            
+
+
         except Agenda_receita.DoesNotExist:
             objAgenda_receita = None
             
         obj = {
             "Receita":q,
             "Agenda":objAgenda_receita,
+            "listNao_tomado":listNao_tomado,
         }
         
         listReceitas.append(obj)
 
-
+    for x in listNao_tomado:
+        print(x)
     context = {
         "nome_pagina": "dashboard",
         "usuario" :primeiro_nome,

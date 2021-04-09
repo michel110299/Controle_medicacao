@@ -17,12 +17,12 @@
                 <tbody>
                     {% for receitas in listReceitas%}
                         {% if receitas.Agenda%}
-                            {%if receitas.Agenda.concluido == True%}
+                            {%if receitas.Agenda.concluido == False%}
                                 <tr>
                                     <td>{{receitas.Receita.remedio}}</td>
                                     <td>{{receitas.Receita.data_inicio}}</td>
                                     <td>{{receitas.Agenda.concluido}}</td>
-
+                                    <td>{{receitas.listNao_tomado}}</td>
                                 </tr>
                             {%endif%}
                         {%endif%}
