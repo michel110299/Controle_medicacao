@@ -8,6 +8,9 @@ body {
     margin-top: 25px;
 }
 
+.lista_doses{
+    display: inline-block;
+}
 
 main {
     flex: 1 0 auto;

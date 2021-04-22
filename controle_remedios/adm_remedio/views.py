@@ -9,6 +9,8 @@ from django.contrib import messages
 
 @login_required
 def dashbord_usuario(request):
+    horario_atual = timezone.now()
+    data_atual = horario_atual.date()
     data_now = timezone.now()
     objPessoa = Pessoa.objects.get(pk=request.user.id)
     primeiro_nome = objPessoa.nome_completo.split(None, 1)[0]
@@ -56,7 +58,8 @@ def dashbord_usuario(request):
         "nome_pagina": "dashboard",
         "usuario" :primeiro_nome,
         "listReceitas":listReceitas,
-    }
+        "data_atual" : data_atual,
+        }
 
     return render(request,"dashboard_usuario.html",context)
 

@@ -25,7 +25,7 @@ SECRET_KEY = '_6mq2g$$h4rfr5fp==4t^t!b-0=%wy7(brgy=2(!+(s=3@e=z%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 
